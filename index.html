@@ -1,19 +1,801 @@
-<!doctype html>
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<title>My static Space</title>
-		<link rel="stylesheet" href="style.css" />
-	</head>
-	<body>
-		<div class="card">
-			<h1>Welcome to your static Space!</h1>
-			<p>You can modify this app directly by editing <i>index.html</i> in the Files and versions tab.</p>
-			<p>
-				Also don't forget to check the
-				<a href="https://huggingface.co/docs/hub/spaces" target="_blank">Spaces documentation</a>.
-			</p>
-		</div>
-	</body>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ensemble Sauvons le Monde - Soutien au village kabyle en Algérie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .kabyle-pattern {
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PHBhdGggZD0iTTAgMEgxMDBWMTAwSDBWMHoiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMjAgMjBINDBWNDBIMjBWMjB6IiBmaWxsPSIjM2VhODcwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjxwYXRoIGQ9Ik02MCAyMEg4MFY0MEg2MFYyMHoiIGZpbGw9IiMzZWE4NzAiIGZpbGwtb3BhY2l0eT0iMC4xIi8+PHBhdGggZD0iTTIwIDYwSDQwVjgwSDIwVjYweiIgZmlsbD0iIzNlYTg3MCIgZmlsbC1vcGFjaXR5PSIwLjEiLz48cGF0aCBkPSJNNjAgNjBIODBWODBINjBWNjB6IiBmaWxsPSIjM2VhODcwIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvc3ZnPg==');
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1580130732477-ef8a57c666d4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .donation-option:hover {
+            transform: scale(1.03);
+        }
+        
+        .kabyle-border {
+            border-bottom: 3px solid #3ea870;
+            width: 80px;
+            margin: 0 auto;
+        }
+        
+        .testimonial-card {
+            background-color: rgba(62, 168, 112, 0.05);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="sticky top-0 z-50 shadow-md bg-white">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-3">
+                    <i class="fas fa-hands-helping text-2xl text-green-600"></i>
+                </div>
+                <a href="#" class="text-2xl font-bold text-gray-800">ESM</a>
+            </div>
+            
+            <nav class="hidden md:flex space-x-8">
+                <a href="#home" class="text-gray-700 hover:text-green-600 font-medium">Accueil</a>
+                <a href="#story" class="text-gray-700 hover:text-green-600 font-medium">Notre histoire</a>
+                <a href="#actions" class="text-gray-700 hover:text-green-600 font-medium">Nos actions</a>
+                <a href="#village" class="text-gray-700 hover:text-green-600 font-medium">Le village</a>
+                <a href="#support" class="text-gray-700 hover:text-green-600 font-medium">Nous soutenir</a>
+                <a href="#news" class="text-gray-700 hover:text-green-600 font-medium">Actualités</a>
+                <a href="#contact" class="text-gray-700 hover:text-green-600 font-medium">Contact</a>
+            </nav>
+            
+            <div class="md:hidden">
+                <button id="menu-toggle" class="text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white py-4 px-4 shadow-lg">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-700 hover:text-green-600 font-medium">Accueil</a>
+                <a href="#story" class="text-gray-700 hover:text-green-600 font-medium">Notre histoire</a>
+                <a href="#actions" class="text-gray-700 hover:text-green-600 font-medium">Nos actions</a>
+                <a href="#village" class="text-gray-700 hover:text-green-600 font-medium">Le village</a>
+                <a href="#support" class="text-gray-700 hover:text-green-600 font-medium">Nous soutenir</a>
+                <a href="#news" class="text-gray-700 hover:text-green-600 font-medium">Actualités</a>
+                <a href="#contact" class="text-gray-700 hover:text-green-600 font-medium">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section text-white py-24 kabyle-pattern">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6">Ensemble pour un avenir meilleur en Kabylie</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">Soutenons ensemble le développement durable d'un village kabyle en Algérie</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="#support" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">Faire un don</a>
+                <a href="#actions" class="bg-white hover:bg-gray-100 text-green-600 font-bold py-3 px-8 rounded-full transition duration-300">Nos actions</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mission Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Notre mission</h2>
+                <div class="kabyle-border"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-green-50 p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-school text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Éducation</h3>
+                    <p class="text-gray-600">Construire des écoles, fournir du matériel scolaire et former les enseignants pour offrir une éducation de qualité aux enfants.</p>
+                </div>
+                
+                <div class="bg-green-50 p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hand-holding-medical text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Santé</h3>
+                    <p class="text-gray-600">Améliorer l'accès aux soins médicaux grâce à des dispensaires mobiles et des campagnes de prévention.</p>
+                </div>
+                
+                <div class="bg-green-50 p-8 rounded-lg text-center">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-tractor text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Agriculture</h3>
+                    <p class="text-gray-600">Développer des techniques agricoles durables pour assurer l'autosuffisance alimentaire du village.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Notre histoire -->
+    <section id="story" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Notre histoire</h2>
+                <div class="kabyle-border"></div>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row items-center gap-8">
+                <div class="lg:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1601758003122-53c40e686a19?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Village kabyle" class="rounded-lg shadow-lg w-full">
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <h3 class="text-2xl font-semibold mb-4 text-gray-800">Comment tout a commencé</h3>
+                    <p class="text-gray-600 mb-4">Fondée en 2015 par un groupe d'amis d'origine kabyle vivant en France, l'association "Ensemble Sauvons le Monde" est née d'un profond désir de redonner à la terre qui les a vus grandir.</p>
+                    <p class="text-gray-600 mb-6">Après avoir visité le village de leurs ancêtres et constaté les difficultés auxquelles faisaient face les habitants, ils ont décidé d'agir concrètement pour améliorer les conditions de vie de cette communauté.</p>
+                    
+                    <div class="bg-green-50 p-6 rounded-lg">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                <i class="fas fa-quote-left text-green-600"></i>
+                            </div>
+                            <p class="text-gray-700 italic">"Nous croyons fermement que chaque petite action compte. En unissant nos forces, nous pouvons créer un impact durable pour ce village et ses générations futures."</p>
+                        </div>
+                        <p class="text-right mt-3 font-medium text-green-600">- Karim, co-fondateur d'ESM</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nos actions -->
+    <section id="actions" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nos actions</h2>
+                <div class="kabyle-border"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Découvrez nos projets concrets pour améliorer la vie des habitants du village</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Projet 1 -->
+                <div class="project-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="École du village" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-0.5 rounded">En cours</span>
+                            <span class="text-gray-500 text-sm">Éducation</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Construction d'une école primaire</h3>
+                        <p class="text-gray-600 mb-4">Un nouveau bâtiment scolaire avec 4 salles de classe pour accueillir 120 enfants.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">75% financé</span>
+                            <a href="#" class="text-green-600 hover:text-green-800 font-medium">En savoir plus →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 2 -->
+                <div class="project-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Dispensaire médical" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">Terminé</span>
+                            <span class="text-gray-500 text-sm">Santé</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Dispensaire médical</h3>
+                        <p class="text-gray-600 mb-4">Un centre de santé équipé pour les soins de base et les urgences, ouvert depuis 2020.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">100% financé</span>
+                            <a href="#" class="text-green-600 hover:text-green-800 font-medium">En savoir plus →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Projet 3 -->
+                <div class="project-card bg-white rounded-lg shadow-md overflow-hidden transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Agriculture durable" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="bg-yellow-100 text-yellow-800 text-xs font-semibold px-2.5 py-0.5 rounded">À venir</span>
+                            <span class="text-gray-500 text-sm">Agriculture</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Programme d'agriculture durable</h3>
+                        <p class="text-gray-600 mb-4">Formation des agriculteurs aux techniques d'irrigation économe et de permaculture.</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-green-600 font-bold">25% financé</span>
+                            <a href="#" class="text-green-600 hover:text-green-800 font-medium">En savoir plus →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-12">
+                <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">Voir tous nos projets</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Le village -->
+    <section id="village" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Le village de Tizi N'Cheikh</h2>
+                <div class="kabyle-border"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Découvrez cette communauté kabyle au cœur des montagnes de Djurdjura</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8 mb-12">
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Présentation</h3>
+                        <p class="text-gray-600 mb-4">Tizi N'Cheikh est un village kabyle typique situé à 800 mètres d'altitude dans la wilaya de Tizi Ouzou. Avec environ 1 200 habitants, la communauté vit principalement de l'agriculture et de l'artisanat.</p>
+                        <p class="text-gray-600">Malgré la beauté des paysages et la richesse culturelle, le village fait face à des défis majeurs : isolement géographique, manque d'infrastructures et exode rural des jeunes.</p>
+                    </div>
+                    
+                    <div class="mt-8 grid sm:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-users text-green-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Population</h4>
+                            </div>
+                            <p class="text-gray-600">~1 200 habitants</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-mountain text-green-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Altitude</h4>
+                            </div>
+                            <p class="text-gray-600">800 mètres</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-calendar-alt text-green-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Fondation</h4>
+                            </div>
+                            <p class="text-gray-600">XVIIIe siècle</p>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg shadow-sm">
+                            <div class="flex items-center mb-2">
+                                <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-language text-green-600"></i>
+                                </div>
+                                <h4 class="font-semibold text-gray-800">Langue</h4>
+                            </div>
+                            <p class="text-gray-600">Kabyle (tamazight)</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-4 rounded-lg shadow-md">
+                        <!-- Carte simplifiée (remplacer par une vraie carte interactive en production) -->
+                        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center mb-4">
+                            <i class="fas fa-map-marked-alt text-4xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 text-gray-800">Localisation</h3>
+                        <p class="text-gray-600 mb-4">Le village est situé à 25 km au sud-est de Tizi Ouzou, accessible par une route de montagne sinueuse. L'isolement géographique rend difficile l'accès aux services de base.</p>
+                        <div class="flex items-center text-gray-600">
+                            <i class="fas fa-car mr-2"></i>
+                            <span>2h30 depuis Alger</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8">
+                        <h3 class="text-xl font-semibold mb-4 text-gray-800">Galerie photo</h3>
+                        <div class="grid grid-cols-3 gap-2">
+                            <img src="https://images.unsplash.com/photo-1620207417543-9f9d27921893?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Paysage kabyle" class="w-full h-24 object-cover rounded">
+                            <img src="https://images.unsplash.com/photo-1617727553252-65863c156eb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Artisanat kabyle" class="w-full h-24 object-cover rounded">
+                            <img src="https://images.unsplash.com/photo-1620207417551-251a8a1a1b3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Maisons kabyles" class="w-full h-24 object-cover rounded">
+                            <img src="https://images.unsplash.com/photo-1620207417551-251a8a1a1b3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Marché local" class="w-full h-24 object-cover rounded">
+                            <img src="https://images.unsplash.com/photo-1620207417551-251a8a1a1b3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Femmes kabyles" class="w-full h-24 object-cover rounded">
+                            <img src="https://images.unsplash.com/photo-1620207417551-251a8a1a1b3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80" alt="Enfants du village" class="w-full h-24 object-cover rounded">
+                        </div>
+                        <a href="#" class="inline-block mt-4 text-green-600 hover:text-green-800 font-medium">Voir plus de photos →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-xl font-semibold mb-4 text-gray-800">Culture et traditions</h3>
+                <p class="text-gray-600 mb-6">La culture kabyle est riche et vivante à Tizi N'Cheikh. Les habitants perpétuent les traditions ancestrales : tissage de tapis, poterie, musique et poésie en langue kabyle. Les fêtes villageoises et les mariages sont des occasions de célébrer cette identité culturelle forte.</p>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-tshirt text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Costume traditionnel</h4>
+                            <p class="text-gray-600">Les femmes portent encore quotidiennement la robe kabyle (taqendurt) et le foulard (taqendurt).</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-utensils text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Cuisine</h4>
+                            <p class="text-gray-600">La gastronomie locale est basée sur les produits du terroir : couscous, tajines, galettes (aɣrum) et miel de montagne.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                            <i class="fas fa-music text-green-600"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-gray-800 mb-2">Musique</h4>
+                            <p class="text-gray-600">La musique kabyle avec ses chants polyphoniques et ses instruments traditionnels (luth, flûte) rythme les événements importants.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nous soutenir -->
+    <section id="support" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Nous soutenir</h2>
+                <div class="kabyle-border"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Chaque contribution, grande ou petite, fait la différence pour les habitants de Tizi N'Cheikh</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 mb-12">
+                <div class="donation-option bg-green-50 p-8 rounded-lg text-center transition duration-300">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-euro-sign text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Dons financiers</h3>
+                    <p class="text-gray-600 mb-4">Soutenez nos projets avec un don ponctuel ou mensuel. Chaque euro compte !</p>
+                    <a href="#donation-form" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Faire un don</a>
+                </div>
+                
+                <div class="donation-option bg-green-50 p-8 rounded-lg text-center transition duration-300">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-hands-helping text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Bénévolat</h3>
+                    <p class="text-gray-600 mb-4">Donnez de votre temps en France ou sur place selon vos compétences.</p>
+                    <a href="#contact" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Nous contacter</a>
+                </div>
+                
+                <div class="donation-option bg-green-50 p-8 rounded-lg text-center transition duration-300">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-box-open text-2xl text-green-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800">Dons matériels</h3>
+                    <p class="text-gray-600 mb-4">Livres scolaires, matériel médical, outils agricoles... Nous avons besoin de tout !</p>
+                    <a href="#contact" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Voir la liste</a>
+                </div>
+            </div>
+            
+            <!-- Formulaire de don -->
+            <div id="donation-form" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Faire un don</h3>
+                
+                <form>
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2" for="amount">Montant du don</label>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
+                                20€ <span class="block text-xs text-gray-500">Achète 5 manuels scolaires</span>
+                            </button>
+                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
+                                50€ <span class="block text-xs text-gray-500">Finance une consultation médicale</span>
+                            </button>
+                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
+                                100€ <span class="block text-xs text-gray-500">Participe à la construction</span>
+                            </button>
+                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
+                                Autre
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2" for="frequency">Fréquence</label>
+                        <div class="flex flex-wrap gap-3">
+                            <button type="button" class="frequency-option bg-green-600 text-white font-medium py-2 px-4 rounded-full transition duration-300">
+                                Une fois
+                            </button>
+                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
+                                Mensuel
+                            </button>
+                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
+                                Trimestriel
+                            </button>
+                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
+                                Annuel
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-gray-700 font-medium mb-2" for="project">Affectation du don (optionnel)</label>
+                        <select class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            <option value="">À la discrétion de l'association</option>
+                            <option value="education">Éducation</option>
+                            <option value="health">Santé</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="infrastructure">Infrastructures</option>
+                        </select>
+                    </div>
+                    
+                    <div class="text-center">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 w-full sm:w-auto">Poursuivre le don</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Actualités -->
+    <section id="news" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Actualités</h2>
+                <div class="kabyle-border"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Suivez nos dernières actions et les nouvelles du village</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Article 1 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Inauguration école" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">15 juin 2023</span>
+                        <h3 class="text-xl font-semibold my-3 text-gray-800">Inauguration de la nouvelle école</h3>
+                        <p class="text-gray-600 mb-4">Après 8 mois de travaux, la nouvelle école primaire du village a enfin ouvert ses portes aux enfants...</p>
+                        <a href="#" class="text-green-600 hover:text-green-800 font-medium">Lire la suite →</a>
+                    </div>
+                </div>
+                
+                <!-- Article 2 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Mission médicale" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">2 mai 2023</span>
+                        <h3 class="text-xl font-semibold my-3 text-gray-800">Mission médicale réussie</h3>
+                        <p class="text-gray-600 mb-4">Notre équipe de bénévoles médecins a pu examiner 247 patients lors de la dernière mission...</p>
+                        <a href="#" class="text-green-600 hover:text-green-800 font-medium">Lire la suite →</a>
+                    </div>
+                </div>
+                
+                <!-- Article 3 -->
+                <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Formation agricole" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <span class="text-sm text-gray-500">18 avril 2023</span>
+                        <h3 class="text-xl font-semibold my-3 text-gray-800">Formation aux techniques agricoles</h3>
+                        <p class="text-gray-600 mb-4">15 agriculteurs du village ont suivi une formation intensive sur les techniques d'irrigation économe...</p>
+                        <a href="#" class="text-green-600 hover:text-green-800 font-medium">Lire la suite →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <a href="#" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300">Voir toutes les actualités</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Témoignages -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Ils nous soutiennent</h2>
+                <div class="kabyle-border"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Témoignage 1 -->
+                <div class="testimonial-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Sophie Martin" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Sophie Martin</h4>
+                            <p class="text-gray-500 text-sm">Donatrice depuis 2018</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Je soutiens ESM depuis plusieurs années car je sais que chaque euro est utilisé de manière transparente et efficace. Recevoir des photos des projets réalisés et des témoignages des bénéficiaires me touche beaucoup."</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Témoignage 2 -->
+                <div class="testimonial-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Karim Belaid" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Karim Belaid</h4>
+                            <p class="text-gray-500 text-sm">Bénévole sur place</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"J'ai passé 3 semaines dans le village pour aider à la construction de l'école. Une expérience humaine incroyable ! Les habitants sont d'une gentillesse et d'une générosité sans limite. Je compte bien y retourner."</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                </div>
+                
+                <!-- Témoignage 3 -->
+                <div class="testimonial-card p-8 rounded-lg">
+                    <div class="flex items-center mb-4">
+                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Amina Chellouf" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Amina Chellouf</h4>
+                            <p class="text-gray-500 text-sm">Habitante du village</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-700 italic">"Grâce au dispensaire construit par ESM, mes enfants peuvent maintenant être soignés sans faire des heures de route. Avant, quand ils étaient malades, c'était toujours un casse-tête pour trouver un médecin."</p>
+                    <div class="flex mt-4 text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Contactez-nous</h2>
+                <div class="kabyle-border"></div>
+                <p class="text-gray-600 max-w-2xl mx-auto mt-4">Nous sommes à votre disposition pour répondre à toutes vos questions</p>
+            </div>
+            
+            <div class="flex flex-col lg:flex-row gap-8">
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-6 text-gray-800">Envoyez-nous un message</h3>
+                        
+                        <form>
+                            <div class="mb-6">
+                                <label class="block text-gray-700 font-medium mb-2" for="name">Nom complet</label>
+                                <input type="text" id="name" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
+                                <input type="email" id="email" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 font-medium mb-2" for="subject">Sujet</label>
+                                <select id="subject" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                    <option value="">Sélectionnez un sujet</option>
+                                    <option value="don">Question sur les dons</option>
+                                    <option value="volunteer">Bénévolat</option>
+                                    <option value="project">Projets en cours</option>
+                                    <option value="other">Autre demande</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-gray-700 font-medium mb-2" for="message">Message</label>
+                                <textarea id="message" rows="4" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 w-full">Envoyer le message</button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="lg:w-1/2">
+                    <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+                        <h3 class="text-xl font-semibold mb-6 text-gray-800">Coordonnées</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Adresse</h4>
+                                    <p class="text-gray-600">15 Rue de la Solidarité<br>75015 Paris, France</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Email</h4>
+                                    <p class="text-gray-600">contact@ensemblesauvonslemonde.org</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone-alt text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Téléphone</h4>
+                                    <p class="text-gray-600">+33 1 23 45 67 89</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-clock text-green-600"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-800 mb-1">Horaires</h4>
+                                    <p class="text-gray-600">Lundi au vendredi : 9h-18h<br>Samedi : 10h-15h</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-md">
+                        <h3 class="text-xl font-semibold mb-6 text-gray-800">Suivez-nous</h3>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition duration-300">
+                                <i class="fab fa-facebook-f text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 hover:bg-pink-200 transition duration-300">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition duration-300">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                            <a href="#" class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 hover:bg-red-200 transition duration-300">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">ESM</h3>
+                    <p class="text-gray-400">Association humanitaire œuvrant pour le développement durable d'un village kabyle en Algérie.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Liens rapides</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white transition duration-300">Accueil</a></li>
+                        <li><a href="#story" class="text-gray-400 hover:text-white transition duration-300">Notre histoire</a></li>
+                        <li><a href="#actions" class="text-gray-400 hover:text-white transition duration-300">Nos actions</a></li>
+                        <li><a href="#support" class="text-gray-400 hover:text-white transition duration-300">Nous soutenir</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Informations</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Mentions légales</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Politique de confidentialité</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Rapports annuels</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition duration-300">Transparence financière</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
+                    <p class="text-gray-400 mb-4">Abonnez-vous à notre newsletter pour suivre nos actions.</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Votre email" class="bg-gray-700 text-white py-2 px-4 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-r-lg transition duration-300">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="pt-8 border-t border-gray-700 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 mb-4 md:mb-0">© 2023 Ensemble Sauvons le Monde. Tous droits réservés.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-cc-visa text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-cc-mastercard text-2xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+                        <i class="fab fa-cc-paypal text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Menu mobile toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Animation for donation amounts
+        const donationAmounts = document.querySelectorAll('.donation-amount');
+        donationAmounts.forEach(amount => {
+            amount.addEventListener('click', function() {
+                donationAmounts.forEach(a => a.classList.remove('bg-green-600', 'text-white'));
+                this.classList.add('bg-green-600', 'text-white');
+            });
+        });
+
+        // Animation for frequency options
+        const frequencyOptions = document.querySelectorAll('.frequency-option');
+        frequencyOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                frequencyOptions.forEach(o => o.classList.remove('bg-green-600', 'text-white'));
+                this.classList.add('bg-green-600', 'text-white');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    document.getElementById('mobile-menu').classList.add('hidden');
+                }
+            });
+        });
+    </script>
+<p style="border-radius: 8px; text-align: center; font-size: 12px; color: #fff; margin-top: 16px;position: fixed; left: 8px; bottom: 8px; z-index: 10; background: rgba(0, 0, 0, 0.8); padding: 4px 8px;">Made with <img src="https://enzostvs-deepsite.hf.space/logo.svg" alt="DeepSite Logo" style="width: 16px; height: 16px; vertical-align: middle;display:inline-block;margin-right:3px;filter:brightness(0) invert(1);"><a href="https://enzostvs-deepsite.hf.space" style="color: #fff;text-decoration: underline;" target="_blank" >DeepSite</a> - 🧬 <a href="https://enzostvs-deepsite.hf.space?remix=Yan59/esm" style="color: #fff;text-decoration: underline;" target="_blank" >Remix</a></p></body>
 </html>
