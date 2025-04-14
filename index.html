@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>  
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
         
@@ -343,7 +344,7 @@
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800">Dons financiers</h3>
                     <p class="text-gray-600 mb-4">Soutenez nos projets avec un don ponctuel ou mensuel. Chaque euro compte !</p>
-                    <a href="#donation-form" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Faire un don</a>
+                    <a href="https://www.cotizup.com/esm" class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-full transition duration-300">Faire un don</a>
                 </div>
                 
                 <div class="donation-option bg-green-50 p-8 rounded-lg text-center transition duration-300">
@@ -473,7 +474,7 @@
 
                 <!-- Membre 3 -->
                 <div class="team-card text-center p-6 md:p-8 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
-                    <img src="amza.jpg" alt="Photo de David Moreau" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
+                    <img src="amza.png" alt="Photo de David Moreau" class="w-24 h-24 rounded-full mx-auto mb-4 object-cover">
                     <div>
                         <h4 class="font-semibold text-lg text-gray-800">Amza Ounnas</h4>
                         <p class="text-blue-600 text-sm font-medium mb-3">Trésorier</p>
@@ -522,24 +523,26 @@
             </div>
             
             <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Section Contact -->
                 <div class="lg:w-1/2">
                     <div class="bg-white p-8 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold mb-6 text-gray-800">Envoyez-nous un message</h3>
-                        
-                        <form>
+
+                        <!-- == AJOUTEZ L'ID ICI == -->
+                        <form id="contact-form">
                             <div class="mb-6">
                                 <label class="block text-gray-700 font-medium mb-2" for="name">Nom complet</label>
-                                <input type="text" id="name" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                <input type="text" id="name" name="name" required class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
                             </div>
-                            
+
                             <div class="mb-6">
                                 <label class="block text-gray-700 font-medium mb-2" for="email">Email</label>
-                                <input type="email" id="email" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
                             </div>
-                            
+
                             <div class="mb-6">
                                 <label class="block text-gray-700 font-medium mb-2" for="subject">Sujet</label>
-                                <select id="subject" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
+                                <select id="subject" name="subject" required class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
                                     <option value="">Sélectionnez un sujet</option>
                                     <option value="don">Question sur les dons</option>
                                     <option value="volunteer">Bénévolat</option>
@@ -547,13 +550,13 @@
                                     <option value="other">Autre demande</option>
                                 </select>
                             </div>
-                            
+
                             <div class="mb-6">
                                 <label class="block text-gray-700 font-medium mb-2" for="message">Message</label>
-                                <textarea id="message" rows="4" class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
+                                <textarea id="message" name="message" rows="4" required class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"></textarea>
                             </div>
-                            
-                            <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 w-full">Envoyer le message</button>
+
+                            <button type="submit" class="submit-button bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 w-full">Envoyer le message</button>
                         </form>
                     </div>
                 </div>
@@ -680,172 +683,261 @@
             </div>
         </div>
     </footer>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
     <script>
-        // Menu mobile toggle
-        document.getElementById('menu-toggle').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-
-        // Animation for donation amounts
-        const donationAmounts = document.querySelectorAll('.donation-amount');
-        donationAmounts.forEach(amount => {
-            amount.addEventListener('click', function() {
-                donationAmounts.forEach(a => a.classList.remove('bg-green-600', 'text-white'));
-                this.classList.add('bg-green-600', 'text-white');
-            });
-        });
-
-        // Animation for frequency options
-        const frequencyOptions = document.querySelectorAll('.frequency-option');
-        frequencyOptions.forEach(option => {
-            option.addEventListener('click', function() {
-                frequencyOptions.forEach(o => o.classList.remove('bg-green-600', 'text-white'));
-                this.classList.add('bg-green-600', 'text-white');
-            });
-        });
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    
-                    // Close mobile menu if open
-                    document.getElementById('mobile-menu').classList.add('hidden');
-                }
-            });
-        });
-        var map = L.map('map').setView([36.5434, 4.3030], 13);
-  
-        // Ajouter la couche de tuiles OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-        
-        // Pour ajouter des marqueurs quand vous recevez des données de votre API
-        function addPOIsToMap(pois) {
-            // Nettoyer la carte des marqueurs existants si nécessaire
-            // map.eachLayer(function(layer) {
-            //   if (layer instanceof L.Marker) map.removeLayer(layer);
-            // });
-            
-            // Ajouter les nouveaux marqueurs
-            pois.forEach(function(poi) {
-            L.marker([poi.latitude, poi.longitude])
-                .addTo(map)
-                .bindPopup(`<b>${poi.name}</b><br>${poi.type}`);
-            });
-            
-            // Ajuster la vue pour inclure tous les marqueurs
-            if (pois.length > 0) {
-            var bounds = L.latLngBounds(pois.map(poi => [poi.latitude, poi.longitude]));
-            map.fitBounds(bounds);
-            }
-        }
-
-        (function() {
-        // Remplacez "votre_user_id" par votre vrai User ID EmailJS
-        emailjs.init("Q_9Ua_icd6RhZwdCW");
-        })();
-
-        // Script pour gérer l'envoi du formulaire
         document.addEventListener('DOMContentLoaded', function() {
-        const contactForm = document.querySelector('form');
-        
-        contactForm.addEventListener('submit', function(event) {
-            event.preventDefault();
-            
-            // Récupérer les valeurs du formulaire
-            const name = document.getElementById('name').value;
-            const email = document.getElementById('email').value;
-            const subject = document.getElementById('subject');
-            const subjectText = subject.options[subject.selectedIndex].text;
-            const message = document.getElementById('message').value;
-            
-            // Validation basique
-            if (!name || !email || !message) {
-            alert("Veuillez remplir tous les champs obligatoires.");
-            return;
+    
+            // --- Initialisations (Bibliothèques, etc.) ---
+            try {
+                // Initialiser EmailJS
+                emailjs.init("Q_9Ua_icd6RhZwdCW");
+                console.log("EmailJS initialisé.");
+            } catch (e) {
+                console.error("Erreur lors de l'initialisation d'EmailJS:", e);
+                alert("Erreur de configuration du service d'email.");
+                // Peut-être arrêter l'exécution ici si EmailJS est critique
             }
-            
-            // Préparer les données pour EmailJS
-            const templateParams = {
-            name: name,
-            email: email,
-            title: subjectText,
-            message: message,
-            time: new Date().toLocaleString('fr-FR')
-            };
-            
-            // Désactiver le bouton pendant l'envoi
-            const submitButton = event.target.querySelector('button[type="submit"]');
-            const originalButtonText = submitButton.innerHTML;
-            submitButton.disabled = true;
-            submitButton.innerHTML = 'Envoi en cours...';
-            
-            // Envoyer l'email
-            emailjs.send('service_w7vly4r', 'template_91cjl19', templateParams)
-            .then(function(response) {
-                console.log('SUCCESS!', response.status, response.text);
-                alert('Votre message a été envoyé avec succès!');
-                contactForm.reset();
-            }, function(error) {
-                console.log('FAILED...', error);
-                alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer plus tard.');
-            })
-            .finally(() => {
-                // Réactiver le bouton
-                submitButton.disabled = false;
-                submitButton.innerHTML = originalButtonText;
-            });
-        });
-
-        const newsletterForm = document.getElementById('newsletter-form');
-
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                const emailInput = e.target.email;
-                const email = emailInput.value;
-
-                if (!email) {
-                    alert("Veuillez entrer une adresse email.");
-                    return;
+    
+            try {
+                // Initialiser la carte Leaflet
+                const mapElement = document.getElementById('map');
+                if (mapElement) {
+                    const map = L.map('map').setView([36.5434, 4.3030], 13); // Mettez vos coordonnées ici
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+                    console.log("Carte Leaflet initialisée.");
+                    // La fonction addPOIsToMap peut être appelée ici si les données sont déjà dispo,
+                    // ou depuis un autre endroit (ex: après un fetch) en passant l'objet 'map' en argument si besoin.
+                } else {
+                    console.warn("L'élément #map n'a pas été trouvé.");
                 }
-
-                // Appel au backend pour l'inscription
-                try {
-                    const res = await fetch('/subscribe', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ email })
+            } catch (e) {
+                 // Vérifiez si 'L' est défini si vous avez une erreur ici
+                 if (typeof L === 'undefined') {
+                     console.error("Erreur: La bibliothèque Leaflet (L) n'est pas chargée avant ce script.");
+                 } else {
+                     console.error("Erreur lors de l'initialisation de Leaflet:", e);
+                 }
+            }
+    
+            // --- Menu Mobile ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (menuToggle && mobileMenu) {
+                menuToggle.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+    
+            // --- Animations Boutons (SI ENCORE UTILISÉS) ---
+            // Vérifiez si ces classes existent toujours dans votre HTML actuel
+            /*
+            const donationAmounts = document.querySelectorAll('.donation-amount');
+            if (donationAmounts.length > 0) {
+                donationAmounts.forEach(amount => {
+                    amount.addEventListener('click', function() {
+                        donationAmounts.forEach(a => a.classList.remove('bg-green-600', 'text-white'));
+                        this.classList.add('bg-green-600', 'text-white');
                     });
+                });
+            }
+    
+            const frequencyOptions = document.querySelectorAll('.frequency-option');
+             if (frequencyOptions.length > 0) {
+                frequencyOptions.forEach(option => {
+                    option.addEventListener('click', function() {
+                        frequencyOptions.forEach(o => o.classList.remove('bg-green-600', 'text-white'));
+                        this.classList.add('bg-green-600', 'text-white');
+                    });
+                });
+            }
+            */
+    
+            // --- Smooth Scrolling ---
+            const anchorLinks = document.querySelectorAll('a[href^="#"]');
+            if (anchorLinks.length > 0) {
+                anchorLinks.forEach(anchor => {
+                    anchor.addEventListener('click', function(e) {
+                        const targetId = this.getAttribute('href');
+                        if (!targetId || targetId === '#') return;
+    
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            e.preventDefault(); // Mettre preventDefault ici, seulement si la cible existe
+                            window.scrollTo({
+                                top: targetElement.offsetTop - 80, // Ajustez l'offset si nécessaire
+                                behavior: 'smooth'
+                            });
+    
+                            // Fermer le menu mobile si ouvert
+                            if (mobileMenu && !mobileMenu.classList.contains('hidden')) {
+                                 mobileMenu.classList.add('hidden');
+                            }
+                        }
+                    });
+                });
+            }
+    
+            // --- Formulaire de Contact (EmailJS) ---
+                        // --- Formulaire de Contact (EmailJS) ---
+                        const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    console.log("Soumission formulaire contact interceptée.");
 
-                    const data = await res.json();
+                    // --- Copiez/Collez votre logique EmailJS ici ---
+                     const nameInput = document.getElementById('name');
+                     const emailInput = document.getElementById('email');
+                     const subjectSelect = document.getElementById('subject');
+                     const messageInput = document.getElementById('message');
 
-                    if (data.success) {
-                        alert('Merci pour votre inscription à la newsletter !');
-                        newsletterForm.reset();
-                    } else {
-                        alert('Une erreur est survenue. Merci de réessayer plus tard.');
-                    }
-                } catch (error) {
-                    console.error(error);
-                    alert('Erreur réseau. Vérifiez votre connexion.');
+                     const name = nameInput.value.trim();
+                     const email = emailInput.value.trim();
+                     const subjectValue = subjectSelect.value;
+                     const subjectText = subjectSelect.options[subjectSelect.selectedIndex].text;
+                     const message = messageInput.value.trim();
+
+                     // 1. REMPLACEMENT DE L'ALERT DE VALIDATION
+                     if (!name || !email || !subjectValue || !message) {
+                         Toastify({
+                             text: "Veuillez remplir tous les champs obligatoires.",
+                             duration: 3000,
+                             close: true,
+                             gravity: "bottom", // Position verticale
+                             position: "right", // Position horizontale
+                             backgroundColor: "linear-gradient(to right, #ff8f00, #ffca28)", // Style Avertissement
+                             stopOnFocus: true,
+                         }).showToast();
+                         console.warn("Validation échouée : champs manquants.");
+                         return; // Important de garder le return pour arrêter l'exécution
+                     }
+
+                     const templateParams = {
+                          name: name, email: email, title: subjectText, message: message, time: new Date().toLocaleString('fr-FR')
+                     };
+                     const submitButton = contactForm.querySelector('.submit-button');
+                     const originalButtonText = submitButton.innerHTML;
+                     submitButton.disabled = true;
+                     submitButton.innerHTML = 'Envoi en cours...';
+
+                     const serviceID = 'service_w7vly4r';
+                     const templateID = 'template_91cjl19';
+
+                     emailjs.send(serviceID, templateID, templateParams)
+                         .then(function(response) {
+                             // 2. REMPLACEMENT DE L'ALERT DE SUCCÈS
+                             console.log('EmailJS Success:', response.status);
+                             Toastify({
+                                 text: "Message envoyé avec succès !",
+                                 duration: 4000,
+                                 close: true,
+                                 gravity: "bottom",
+                                 position: "right",
+                                 backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)", // Style Succès
+                                 stopOnFocus: true,
+                             }).showToast();
+                             contactForm.reset(); // Garder la réinitialisation
+                         },
+                         function(error) {
+                             // 3. REMPLACEMENT DE L'ALERT D'ERREUR
+                             console.error('EmailJS Error:', error);
+                             let errorMessage = 'Une erreur est survenue lors de l\'envoi. ';
+                              if (error.status) { errorMessage += `(Code: ${error.status}) `; }
+                              if (typeof error === 'object' && error.text) { errorMessage += `(Détail: ${error.text})`; }
+                              else { errorMessage += 'Veuillez réessayer.'; }
+
+                             Toastify({
+                                 text: errorMessage,
+                                 duration: 5000,
+                                 close: true,
+                                 gravity: "bottom",
+                                 position: "right",
+                                 backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)", // Style Erreur
+                                 stopOnFocus: true,
+                             }).showToast();
+                         })
+                         .finally(() => {
+                             // La partie finally reste inchangée
+                             submitButton.disabled = false;
+                             submitButton.innerHTML = originalButtonText;
+                         });
+                     // --- Fin logique EmailJS ---
+
+                });
+            } else {
+                console.warn("L'élément #contact-form n'a pas été trouvé.");
+            }
+    
+            // --- Formulaire Newsletter ---
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    // ... (votre logique fetch vers /subscribe existante) ...
+                    const emailInput = e.target.email; // Assurez-vous que l'input a name="email"
+                     const email = emailInput.value.trim();
+    
+                     if (!email) {
+                         alert("Veuillez entrer une adresse email.");
+                         return;
+                     }
+                     const submitButtonNews = newsletterForm.querySelector('button[type="submit"]'); // Adapter si besoin
+                     if(submitButtonNews) submitButtonNews.disabled = true; // Désactiver
+    
+                     try {
+                         const res = await fetch('/subscribe', {
+                             method: 'POST',
+                             headers: { 'Content-Type': 'application/json' },
+                             body: JSON.stringify({ email })
+                         });
+                         const data = await res.json(); // Attendre la réponse JSON
+                         if (res.ok && data.success) { // Vérifier aussi le statut HTTP
+                             alert('Merci pour votre inscription à la newsletter !');
+                             newsletterForm.reset();
+                         } else {
+                             // Tenter de donner une erreur plus spécifique si le backend la fournit
+                             const errorMsg = data.message || 'Une erreur est survenue. Merci de réessayer plus tard.';
+                             alert(errorMsg);
+                             console.error("Erreur inscription newsletter:", data);
+                         }
+                     } catch (error) {
+                         console.error("Erreur réseau inscription:", error);
+                         alert('Erreur réseau. Vérifiez votre connexion.');
+                     } finally {
+                          if(submitButtonNews) submitButtonNews.disabled = false; // Réactiver
+                     }
+                });
+            } else {
+                 console.warn("L'élément #newsletter-form n'a pas été trouvé.");
+            }
+    
+            // --- Autres initialisations ou listeners ici ---
+    
+            // Fonction pour ajouter les POIs (définie ici pour être dans la portée)
+            function addPOIsToMap(mapInstance, pois) { // Passe mapInstance en argument
+                 if (!mapInstance) {
+                     console.error("Impossible d'ajouter des POIs: instance de carte non fournie.");
+                     return;
+                 }
+                // mapInstance.eachLayer(...) // Nettoyage si besoin
+                pois.forEach(function(poi) {
+                    L.marker([poi.latitude, poi.longitude])
+                        .addTo(mapInstance)
+                        .bindPopup(`<b>${poi.name}</b><br>${poi.type}`);
+                });
+                if (pois.length > 0) {
+                    var bounds = L.latLngBounds(pois.map(poi => [poi.latitude, poi.longitude]));
+                    mapInstance.fitBounds(bounds);
                 }
-            });
-        }
-
-        });
+            }
+            // Exemple d'appel (si vous avez les données au chargement):
+            // const initialPois = [{latitude: ..., longitude: ..., name: ..., type: ...}];
+            // if (typeof map !== 'undefined') addPOIsToMap(map, initialPois); // Assurez-vous que 'map' est accessible
+    
+    
+        }); // Fin de DOMContentLoaded
     </script>
 </html>
