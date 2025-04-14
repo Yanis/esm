@@ -6,6 +6,9 @@
     <title>Ensemble Sauvons le Monde - Soutien au village kabyle en Algérie</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>  
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
         
@@ -49,10 +52,10 @@
     <header class="sticky top-0 z-50 shadow-md bg-white">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
-                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-3">
-                    <i class="fas fa-hands-helping text-2xl text-green-600"></i>
-                </div>
-                <a href="#" class="text-2xl font-bold text-gray-800">ESM</a>
+                <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mr-3 overflow-hidden">
+                    <img src="logo.png" alt="Logo ESM" class="w-full h-full object-contain">
+                </div>                
+                <a href="#home" class="text-2xl font-bold text-gray-800">ESM</a>
             </div>
             
             <nav class="hidden md:flex space-x-8">
@@ -262,10 +265,7 @@
                 
                 <div class="lg:w-1/2">
                     <div class="bg-white p-4 rounded-lg shadow-md">
-                        <!-- Carte simplifiée (remplacer par une vraie carte interactive en production) -->
-                        <div class="bg-gray-200 h-64 rounded-lg flex items-center justify-center mb-4">
-                            <i class="fas fa-map-marked-alt text-4xl text-gray-400"></i>
-                        </div>
+                        <div id="map" class="h-64 rounded-lg mb-4"></div>
                         <h3 class="text-xl font-semibold mb-3 text-gray-800">Localisation</h3>
                         <p class="text-gray-600 mb-4">Ikhtaven est situé à environ 25 km au sud-est de Béjaïa, accessible par une route de montagne sinueuse. L'isolement géographique rend difficile l'accès aux services de base.</p>
                         <div class="flex items-center text-gray-600">
@@ -365,62 +365,43 @@
                 </div>
             </div>
             
-            <!-- Formulaire de don -->
-            <div id="donation-form" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md">
-                <h3 class="text-2xl font-semibold mb-6 text-gray-800 text-center">Faire un don</h3>
-                
-                <form>
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2" for="amount">Montant du don</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
-                                20€ <span class="block text-xs text-gray-500">Achète 5 manuels scolaires</span>
-                            </button>
-                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
-                                50€ <span class="block text-xs text-gray-500">Finance une consultation médicale</span>
-                            </button>
-                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
-                                100€ <span class="block text-xs text-gray-500">Participe à la construction</span>
-                            </button>
-                            <button type="button" class="donation-amount bg-green-50 hover:bg-green-100 text-green-600 font-medium py-3 px-4 rounded-lg transition duration-300">
-                                Autre
-                            </button>
-                        </div>
+            <!-- Section d'appel au don simplifié -->
+            <div id="donation-cta" class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-md text-center">
+
+                <h3 class="text-2xl font-semibold mb-4 text-gray-800">Soutenez notre action !</h3>
+
+                <p class="text-gray-600 mb-6">
+                    Chaque don compte et nous aide concrètement sur le terrain. Votre générosité finance directement nos projets en [mentionnez brièvement le domaine, ex: éducation, santé, etc.] au Sénégal. Faites un don sécurisé via notre cagnotte Cotizup.
+                </p>
+
+                <div class="mb-8 space-y-3 text-left sm:text-center">
+                    <h4 class="text-lg font-medium text-gray-700 mb-3 text-center">Votre don fait la différence :</h4>
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <p><span class="font-semibold">20€</span> = 5 manuels scolaires pour un élève.</p>
                     </div>
-                    
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2" for="frequency">Fréquence</label>
-                        <div class="flex flex-wrap gap-3">
-                            <button type="button" class="frequency-option bg-green-600 text-white font-medium py-2 px-4 rounded-full transition duration-300">
-                                Une fois
-                            </button>
-                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
-                                Mensuel
-                            </button>
-                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
-                                Trimestriel
-                            </button>
-                            <button type="button" class="frequency-option bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-full transition duration-300">
-                                Annuel
-                            </button>
-                        </div>
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <p><span class="font-semibold">50€</span> = 1 consultation médicale complète.</p>
                     </div>
-                    
-                    <div class="mb-6">
-                        <label class="block text-gray-700 font-medium mb-2" for="project">Affectation du don (optionnel)</label>
-                        <select class="w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                            <option value="">À la discrétion de l'association</option>
-                            <option value="education">Éducation</option>
-                            <option value="health">Santé</option>
-                            <option value="agriculture">Agriculture</option>
-                            <option value="infrastructure">Infrastructures</option>
-                        </select>
+                    <div class="flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                        <p><span class="font-semibold">100€</span> = Une participation significative à nos projets de construction.</p>
                     </div>
-                    
-                    <div class="text-center">
-                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 w-full sm:w-auto">Poursuivre le don</button>
-                    </div>
-                </form>
+                </div>
+
+                <div>
+                    <a href="https://www.cotizup.com/esm"
+                    target="_blank" rel="noopener noreferrer"
+                    class="inline-block bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full transition duration-300 text-lg">
+                        Faire un don sécurisé sur Cotizup
+                    </a>
+                </div>
+
+                <p class="text-xs text-gray-500 mt-4">
+                    Vous serez redirigé vers la plateforme sécurisée Cotizup pour finaliser votre don.
+                </p>
+
             </div>
         </div>
     </section>
@@ -627,17 +608,11 @@
                     <div class="bg-white p-8 rounded-lg shadow-md">
                         <h3 class="text-xl font-semibold mb-6 text-gray-800">Suivez-nous</h3>
                         <div class="flex space-x-4">
-                            <a href="#" class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition duration-300">
+                            <a href="https://www.facebook.com/profile.php?id=61575036729453" class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 hover:bg-blue-200 transition duration-300">
                                 <i class="fab fa-facebook-f text-xl"></i>
                             </a>
                             <a href="https://www.instagram.com/esm.sauvonslemonde?igsh=enk1ZWNjZ241NzV1" class="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 hover:bg-pink-200 transition duration-300">
                                 <i class="fab fa-instagram text-xl"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-blue-400 rounded-full flex items-center justify-center text-white hover:bg-blue-500 transition duration-300">
-                                <i class="fab fa-twitter text-xl"></i>
-                            </a>
-                            <a href="#" class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-600 hover:bg-red-200 transition duration-300">
-                                <i class="fab fa-youtube text-xl"></i>
                             </a>
                         </div>
                     </div>
@@ -678,10 +653,12 @@
                 <div>
                     <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
                     <p class="text-gray-400 mb-4">Abonnez-vous à notre newsletter pour suivre nos actions.</p>
-                    <form class="flex">
-                        <input type="email" placeholder="Votre email" class="bg-gray-700 text-white py-2 px-4 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
-                        <button type="submit" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-r-lg transition duration-300">
-                            <i class="fas fa-paper-plane"></i>
+                    <form class="flex" id="newsletter-form">
+                        <input type="email" name="email" placeholder="Votre email" required
+                          class="bg-gray-700 text-white py-2 px-4 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500 w-full">
+                        <button type="submit"
+                          class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-r-lg transition duration-300">
+                          <i class="fas fa-paper-plane"></i>
                         </button>
                     </form>
                 </div>
@@ -747,6 +724,128 @@
                     document.getElementById('mobile-menu').classList.add('hidden');
                 }
             });
+        });
+        var map = L.map('map').setView([36.5434, 4.3030], 13);
+  
+        // Ajouter la couche de tuiles OpenStreetMap
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        
+        // Pour ajouter des marqueurs quand vous recevez des données de votre API
+        function addPOIsToMap(pois) {
+            // Nettoyer la carte des marqueurs existants si nécessaire
+            // map.eachLayer(function(layer) {
+            //   if (layer instanceof L.Marker) map.removeLayer(layer);
+            // });
+            
+            // Ajouter les nouveaux marqueurs
+            pois.forEach(function(poi) {
+            L.marker([poi.latitude, poi.longitude])
+                .addTo(map)
+                .bindPopup(`<b>${poi.name}</b><br>${poi.type}`);
+            });
+            
+            // Ajuster la vue pour inclure tous les marqueurs
+            if (pois.length > 0) {
+            var bounds = L.latLngBounds(pois.map(poi => [poi.latitude, poi.longitude]));
+            map.fitBounds(bounds);
+            }
+        }
+
+        (function() {
+        // Remplacez "votre_user_id" par votre vrai User ID EmailJS
+        emailjs.init("Q_9Ua_icd6RhZwdCW");
+        })();
+
+        // Script pour gérer l'envoi du formulaire
+        document.addEventListener('DOMContentLoaded', function() {
+        const contactForm = document.querySelector('form');
+        
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Récupérer les valeurs du formulaire
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const subject = document.getElementById('subject');
+            const subjectText = subject.options[subject.selectedIndex].text;
+            const message = document.getElementById('message').value;
+            
+            // Validation basique
+            if (!name || !email || !message) {
+            alert("Veuillez remplir tous les champs obligatoires.");
+            return;
+            }
+            
+            // Préparer les données pour EmailJS
+            const templateParams = {
+            name: name,
+            email: email,
+            title: subjectText,
+            message: message,
+            time: new Date().toLocaleString('fr-FR')
+            };
+            
+            // Désactiver le bouton pendant l'envoi
+            const submitButton = event.target.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.innerHTML;
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Envoi en cours...';
+            
+            // Envoyer l'email
+            emailjs.send('service_w7vly4r', 'template_91cjl19', templateParams)
+            .then(function(response) {
+                console.log('SUCCESS!', response.status, response.text);
+                alert('Votre message a été envoyé avec succès!');
+                contactForm.reset();
+            }, function(error) {
+                console.log('FAILED...', error);
+                alert('Une erreur est survenue lors de l\'envoi. Veuillez réessayer plus tard.');
+            })
+            .finally(() => {
+                // Réactiver le bouton
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+            });
+        });
+
+        const newsletterForm = document.getElementById('newsletter-form');
+
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                const emailInput = e.target.email;
+                const email = emailInput.value;
+
+                if (!email) {
+                    alert("Veuillez entrer une adresse email.");
+                    return;
+                }
+
+                // Appel au backend pour l'inscription
+                try {
+                    const res = await fetch('/subscribe', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+
+                    const data = await res.json();
+
+                    if (data.success) {
+                        alert('Merci pour votre inscription à la newsletter !');
+                        newsletterForm.reset();
+                    } else {
+                        alert('Une erreur est survenue. Merci de réessayer plus tard.');
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert('Erreur réseau. Vérifiez votre connexion.');
+                }
+            });
+        }
+
         });
     </script>
 </html>
